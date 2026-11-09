@@ -162,6 +162,9 @@ transport-neutral so it can become a standalone service without rewriting domain
 Known gaps are documented in [the threat model](docs/security/threat-model.md). This code has not
 had an independent penetration test.
 
+To report a security issue, use the private process in [SECURITY.md](SECURITY.md). Do not open a
+public issue.
+
 ---
 
 ## Documentation
@@ -175,6 +178,7 @@ had an independent penetration test.
 - [AI architecture](docs/architecture/ai.md)
 - [Integration architecture](docs/architecture/integrations.md)
 - [Threat model](docs/security/threat-model.md)
+- [Security policy](SECURITY.md)
 - [Permission matrix](docs/security/permission-matrix.md)
 - [Regulatory map](docs/compliance/regulatory-map.md)
 - [API guide](docs/api/rest.md)
@@ -209,4 +213,6 @@ and complete retention/legal-hold and backup/restore evidence. Then run independ
 
 ## Licence
 
-Proprietary. All rights reserved.
+Veyra is released under the [MIT License](LICENSE).
+
+Copyright © 2026 Veyra contributors.
