@@ -1,0 +1,10 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# pnpm 10 blocks lifecycle scripts by default. These packages need their
+# install scripts to place platform binaries on disk.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - unrs-resolver

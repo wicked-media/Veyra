@@ -1,0 +1,39 @@
+{
+  "name": "veyra",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Veyra — Australia's AI-native legal practice operating system",
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @veyra/web dev",
+    "build": "pnpm --filter @veyra/web build",
+    "start": "pnpm --filter @veyra/web start",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "pnpm --filter @veyra/database db:generate",
+    "db:migrate": "node --env-file-if-exists=.env --import tsx packages/database/src/migrate.ts",
+    "db:seed:demo": "node --env-file-if-exists=.env --import tsx scripts/seed-demo.ts",
+    "worker": "pnpm --filter @veyra/worker start",
+    "docs:permissions": "node --import tsx scripts/generate-permission-matrix.ts",
+    "verify": "pnpm typecheck && pnpm lint && pnpm test"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@veyra/auth": "workspace:*",
+    "@veyra/contracts": "workspace:*",
+    "@veyra/core": "workspace:*",
+    "@veyra/database": "workspace:*",
+    "@types/node": "26.6.6",
+    "drizzle-orm": "0.45.4",
+    "eslint": "9.39.5",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "4.1.12"
+  }
+}

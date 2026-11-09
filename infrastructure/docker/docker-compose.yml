@@ -1,0 +1,109 @@
+# Local/staging demonstration stack only.
+#
+# Do not expose this stack to the internet or load real client data. It seeds a
+# synthetic demo firm. Production must use managed PostgreSQL, a dedicated
+# migration job, a secret manager and TLS.
+
+name: veyra
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: veyra
+      POSTGRES_PASSWORD: veyra
+      POSTGRES_DB: veyra
+    ports:
+      - "5432:5432"
+    volumes:
+      - veyra-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U veyra -d veyra"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  migrate:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile
+    command: ["pnpm", "db:migrate"]
+    environment:
+      DATABASE_URL: postgresql://veyra:veyra@db:5432/veyra
+      VEYRA_APP_URL: http://localhost:3000
+    depends_on:
+      db:
+        condition: service_healthy
+
+  seed:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile
+    command: ["pnpm", "db:seed:demo"]
+    environment:
+      # The seed refuses to run when NODE_ENV=production; this is local only.
+      NODE_ENV: development
+      DATABASE_URL: postgresql://veyra:veyra@db:5432/veyra
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  app:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://veyra:veyra@db:5432/veyra
+      VEYRA_APP_URL: http://localhost:3000
+      VEYRA_AUTO_SEED: "false"
+      # Production authentication is OIDC-only and fails closed until these
+      # values are supplied from the host environment or a secret manager.
+      # Local credentials cannot be enabled here.
+      VEYRA_OIDC_ISSUER: ${VEYRA_OIDC_ISSUER:-}
+      VEYRA_OIDC_CLIENT_ID: ${VEYRA_OIDC_CLIENT_ID:-}
+      VEYRA_OIDC_CLIENT_SECRET: ${VEYRA_OIDC_CLIENT_SECRET:-}
+      VEYRA_DOCUMENT_DIR: /var/lib/veyra/documents
+      VEYRA_MALWARE_SCANNER_URL: ${VEYRA_MALWARE_SCANNER_URL:-}
+      VEYRA_MALWARE_SCANNER_TOKEN: ${VEYRA_MALWARE_SCANNER_TOKEN:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    volumes:
+      - veyra-documents:/var/lib/veyra/documents
+    ports:
+      - "3000:3000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      seed:
+        condition: service_completed_successfully
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  worker:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile
+    command: ["pnpm", "--filter", "@veyra/worker", "start"]
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://veyra:veyra@db:5432/veyra
+      VEYRA_WORKER_INTERVAL_MS: "900000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+
+volumes:
+  veyra-postgres:
+  veyra-documents:

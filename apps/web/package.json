@@ -1,0 +1,33 @@
+{
+  "name": "@veyra/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0 --port 3000",
+    "build": "next build",
+    "start": "next start --hostname 0.0.0.0 --port 3000",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@veyra/api": "workspace:*",
+    "@veyra/auth": "workspace:*",
+    "@veyra/contracts": "workspace:*",
+    "@veyra/core": "workspace:*",
+    "@veyra/database": "workspace:*",
+    "@veyra/integrations": "workspace:*",
+    "@veyra/ui": "workspace:*",
+    "lucide-react": "1.69.0",
+    "next": "15.5.29",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.4",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.1.1",
+    "tailwindcss": "4.3.4",
+    "typescript": "5.9.3"
+  }
+}

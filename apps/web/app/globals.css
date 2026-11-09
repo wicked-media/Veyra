@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+@source "../../../packages/ui/src";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --canvas: #f7f9fa;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --ink: #142b38;
+  --muted: #536574;
+  --faint: #7d8d98;
+  --line: #e4e9ec;
+  --line-strong: #ccd7dd;
+  --teal: #25b89a;
+  --teal-strong: #128f77;
+  --sidebar: #0b1c25;
+  --sidebar-raised: #112833;
+  --sidebar-line: #203744;
+  --sidebar-ink: #eaf2f5;
+  --sidebar-muted: #90a5b0;
+  --positive: #157a5e;
+  --warning: #a96b14;
+  --danger: #b93c36;
+  --info: #2c678f;
+  --ring: rgba(37, 184, 154, 0.45);
+}
+
+.dark {
+  --canvas: #08161d;
+  --surface: #0e2029;
+  --surface-raised: #12262f;
+  --ink: #e8f0f3;
+  --muted: #a1b3bc;
+  --faint: #7e929d;
+  --line: #1d323d;
+  --line-strong: #2a414d;
+  --teal: #2cc9a9;
+  --teal-strong: #5be0c3;
+  --sidebar: #061218;
+  --sidebar-raised: #0c2029;
+  --sidebar-line: #19303b;
+  --sidebar-ink: #edf5f8;
+  --sidebar-muted: #8ba1ac;
+  --positive: #4bd0a8;
+  --warning: #e3ad5b;
+  --danger: #ef827c;
+  --info: #80bae0;
+  --ring: rgba(44, 201, 169, 0.4);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-teal-400: #4ad3b7;
+  --color-teal-500: var(--teal);
+  --color-teal-600: var(--teal-strong);
+  --color-navy-700: #1d3e4f;
+  --color-navy-800: #142b38;
+  --color-navy-900: #0b1c25;
+  --color-navy-950: #061218;
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-raised: var(--sidebar-raised);
+  --color-sidebar-line: var(--sidebar-line);
+  --color-sidebar-ink: var(--sidebar-ink);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-positive: var(--positive);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --font-mono: "SFMono-Regular", ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  ::selection {
+    background: rgba(37, 184, 154, 0.22);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.55;
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .table-shell {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .table-shell thead th {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  .table-shell tbody td {
+    padding: 13px 16px;
+    font-size: 13.5px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .table-shell tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .table-shell tbody tr {
+    transition: background-color 120ms ease;
+  }
+
+  .table-shell tbody tr:hover {
+    background-color: color-mix(in oklab, var(--canvas) 75%, transparent);
+  }
+
+  .kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4rem;
+    height: 1.35rem;
+    padding: 0 0.3rem;
+    border-radius: 0.35rem;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--faint);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  .grid-texture {
+    background-image:
+      radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--ink) 8%, transparent) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  .sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sidebar-line) transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
