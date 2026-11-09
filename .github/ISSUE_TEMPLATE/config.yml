@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/wicked-media/Veyra/security/advisories/new
+    about: Do not open a public issue for a suspected vulnerability. Use private advisory reporting.
+  - name: Read the contributing guide
+    url: https://github.com/wicked-media/Veyra/blob/main/CONTRIBUTING.md
+    about: Review the development, testing, security and pull-request requirements before contributing.

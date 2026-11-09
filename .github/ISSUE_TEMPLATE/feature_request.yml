@@ -1,0 +1,92 @@
+name: Feature request
+description: Propose a scoped change to Veyra.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Suspected security vulnerabilities must not be reported here.** Use [private vulnerability reporting](https://github.com/wicked-media/Veyra/security/advisories/new) and follow [SECURITY.md](https://github.com/wicked-media/Veyra/blob/main/SECURITY.md).
+
+        Use synthetic examples only. Do not include real client, personal or privileged information, credentials or production logs.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight
+      options:
+        - label: I have searched existing issues and this is not a duplicate.
+          required: true
+        - label: This is not a security vulnerability; I will report those privately.
+          required: true
+        - label: I have not included real client data, personal information or secrets.
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or operational problem should this address?
+      placeholder: Staff cannot ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behaviour
+      description: Describe the smallest useful change and how it should behave.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Authentication, sessions or OIDC
+        - Tenant isolation, roles or permissions
+        - Ethical walls or restricted matters
+        - Clients or matters
+        - Tasks, calendar or deadlines
+        - Documents or downloads
+        - Audit
+        - AI assistant
+        - API
+        - UI, accessibility or responsive layout
+        - Local development, database or build
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: security
+    attributes:
+      label: Security, privacy and regulatory impact
+      description: Explain effects on tenant isolation, ethical walls, audit, confidentiality, data retention or regulatory obligations. Write "None identified" if there are none.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What workarounds or simpler options did you consider?
+    validations:
+      required: false
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and acceptance criteria
+      description: What is in scope, what is explicitly out of scope, and how should maintainers verify the change?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Mockups, related issues or prior discussion, with sensitive information removed.
+    validations:
+      required: false

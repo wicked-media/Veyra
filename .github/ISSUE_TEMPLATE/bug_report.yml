@@ -1,0 +1,119 @@
+name: Bug report
+description: Report reproducible behaviour that is not a security vulnerability.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Do not report security vulnerabilities here.** Follow [SECURITY.md](https://github.com/wicked-media/Veyra/blob/main/SECURITY.md) and use [private vulnerability reporting](https://github.com/wicked-media/Veyra/security/advisories/new).
+
+        Use synthetic data only. Do not include real client, personal or privileged information, credentials, tokens or production logs. Redact screenshots and logs before attaching them.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight
+      options:
+        - label: I have searched existing issues and this is not a duplicate.
+          required: true
+        - label: This is not a security vulnerability; I will report those privately.
+          required: true
+        - label: I have removed real client data, personal information and secrets.
+          required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What went wrong, in one or two sentences?
+      placeholder: The matter list does not show a matter I can open directly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest reliable sequence using synthetic data.
+      placeholder: |
+        1. Sign in as the demo owner.
+        2. Open ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What should have happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What happened? Include the exact error message where possible, with sensitive values removed.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      description: Select the closest match. Security boundaries belong in a private report.
+      options:
+        - Authentication, sessions or OIDC
+        - Tenant isolation, roles or permissions
+        - Ethical walls or restricted matters
+        - Clients or matters
+        - Tasks, calendar or deadlines
+        - Documents or downloads
+        - Audit
+        - AI assistant
+        - API
+        - UI, accessibility or responsive layout
+        - Local development, database or build
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Commit or version
+      description: The commit SHA, branch or release where you observed the bug.
+      placeholder: main at 3f84ca7
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Node and pnpm versions, browser, operating system, database (PGlite or PostgreSQL), and whether this is a production build.
+      placeholder: |
+        Node:
+        pnpm:
+        Browser:
+        Database:
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs or screenshots
+      description: Optional. Remove tokens, cookies, personal data and client information before attaching anything.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else that would help reproduce or assess the issue.
+    validations:
+      required: false
