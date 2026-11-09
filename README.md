@@ -179,6 +179,7 @@ public issue.
 - [Integration architecture](docs/architecture/integrations.md)
 - [Threat model](docs/security/threat-model.md)
 - [Security policy](SECURITY.md)
+- [Contributing](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.md)
 - [Permission matrix](docs/security/permission-matrix.md)
 - [Regulatory map](docs/compliance/regulatory-map.md)
 - [API guide](docs/api/rest.md)
@@ -210,6 +211,12 @@ Harden **Stage 3/4** before production: replace local document storage with encr
 storage, connect a real malware scanner, add an ingestion/OCR worker, configure and penetration-test
 OIDC with the chosen managed identity provider, build the AI evaluation and data-processing gates,
 and complete retention/legal-hold and backup/restore evidence. Then run independent security review.
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Participation is governed by
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Report security issues privately via
+[SECURITY.md](SECURITY.md), not in a public issue.
 
 ## Licence
 
