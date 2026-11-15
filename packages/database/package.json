@@ -12,7 +12,7 @@
     "db:generate": "drizzle-kit generate --config=drizzle.config.ts"
   },
   "dependencies": {
-    "@electric-sql/pglite": "0.5.15",
+    "@electric-sql/pglite": "0.5.16",
     "drizzle-orm": "0.45.4",
     "pg": "8.23.1"
   },
