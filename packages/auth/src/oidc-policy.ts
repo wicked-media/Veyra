@@ -123,6 +123,19 @@ function claimValues(claims: Record<string, unknown>, key: string): string[] {
 }
 
 /**
+ * Linear-time shape check for untrusted identity-token claims. This avoids the
+ * polynomial backtracking of a repeated-character regular expression.
+ */
+function hasUsableEmailShape(value: string): boolean {
+  if (/\s/.test(value)) return false;
+  const at = value.indexOf("@");
+  if (at <= 0 || at !== value.lastIndexOf("@")) return false;
+  const domain = value.slice(at + 1);
+  const dot = domain.indexOf(".", 1);
+  return dot > 0 && dot < domain.length - 1;
+}
+
+/**
  * Validates claims after the signature, issuer, audience and expiry have been
  * verified by the OIDC verifier. Fails closed on missing email verification,
  * missing MFA and nonce mismatch.
@@ -145,7 +158,7 @@ export function assertOidcClaims(
 
   const email = stringClaim(claims, "email") ?? stringClaim(claims, "preferred_username") ??
     stringClaim(claims, "upn");
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!email || !hasUsableEmailShape(email)) {
     throw new OidcPolicyError("The identity provider did not return a usable email address");
   }
 

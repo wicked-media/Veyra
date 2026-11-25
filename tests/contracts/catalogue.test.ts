@@ -184,6 +184,34 @@ describe("OIDC policy", () => {
       assertOidcClaims({ ...baseClaims, nonce: "replayed" }, configuration, "nonce-1")
     ).toThrow(/nonce/i);
   });
+
+  it(
+    "rejects an adversarial email without pathological backtracking",
+    () => {
+      const configuration = resolveOidcConfiguration({
+        VEYRA_OIDC_ISSUER: "https://id.example.test",
+        VEYRA_OIDC_CLIENT_ID: "veyra-client",
+        VEYRA_APP_URL: "https://app.example.test"
+      });
+      const adversarialEmail = `!@!.${"!.".repeat(50_000)}@`;
+
+      expect(() =>
+        assertOidcClaims(
+          {
+            iss: "https://id.example.test",
+            sub: "subject-1",
+            email: adversarialEmail,
+            email_verified: true,
+            nonce: "nonce-1",
+            amr: ["pwd", "mfa"]
+          },
+          configuration,
+          "nonce-1"
+        )
+      ).toThrow(/usable email/i);
+    },
+    1_000
+  );
 });
 
 describe("integration catalogue", () => {
