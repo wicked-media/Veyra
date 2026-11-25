@@ -33,7 +33,7 @@
     "drizzle-orm": "0.45.4",
     "eslint": "9.39.5",
     "tsx": "4.23.15",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "typescript-eslint": "8.72.1",
     "vitest": "4.1.12"
   }
